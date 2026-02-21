@@ -1,4 +1,4 @@
-<script src="pages/problem/view.js"></script>
+<script src="pages/problem/view.js"></script> 
 <div class="card shadow-custom border-0 mb-4">
     <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
@@ -9,7 +9,7 @@
                 <h5 class="mb-0 fw-bold text-dark">รายการแจ้งซ่อม</h5>
                 <small class="text-muted">จัดการข้อมูลการแจ้งซ่อมทั้งหมด</small>
             </div>
-        </div>
+        </div>       
         <button class="btn btn-success text-white shadow-sm" id="btnAdd">
             <i class="bi bi-plus-lg me-1"></i> แจ้งซ่อมใหม่
         </button>
@@ -84,7 +84,9 @@
                         <label class="form-label fw-bold">ผู้รับผิดชอบ</label>
                         <input type="text" id="repair_responsible" class="form-control" placeholder="ระบุชื่อช่างผู้รับผิดชอบ">
                     </div>
-                    
+                    <?php
+                        if ($_SESSION['admin_role'] == 1) {
+                    ?>
                     <div class="col-md-6">
                          <label class="form-label fw-bold">สถานะ</label>
                         <select id="repair_status" class="form-select">
@@ -94,7 +96,7 @@
                             <option value="ยกเลิก">ยกเลิก</option>
                         </select>
                     </div>
-
+                    <?php }?>
                     <div class="col-12">
                         <label class="form-label fw-bold">รายละเอียดเพิ่มเติม</label>
                         <textarea id="repair_details" class="form-control" rows="3" placeholder="รายละเอียดอื่นๆ ของปัญหา"></textarea>

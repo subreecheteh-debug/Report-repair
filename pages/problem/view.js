@@ -105,6 +105,7 @@ $(document).ready(function () {
 
         let repair_id = $("#repair_id").val();
         let fn = repair_id ? "update_repair" : "insert_repair";//ฟังก็ชัน แก้ไข และเพิ่ม
+        let repair_status = repair_id ? $("#repair_status").val() : "รอรับเรื่อง";
 
         $.ajax({
             type: "post",
@@ -117,7 +118,7 @@ $(document).ready(function () {
                 repair_user: $("#repair_user").val(),//ส่ง user_phone ไปบันทึก
                 repair_list: $("#repair_list").val(),
                 repair_responsible: $("#repair_responsible").val(),
-                repair_status: $("#repair_status").val(),
+                repair_status: repair_status,
                 repair_details: $("#repair_details").val()
 
             },
