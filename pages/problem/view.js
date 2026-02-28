@@ -30,7 +30,7 @@ $(document).ready(function () {
                             <td class="ps-4 text-muted">${index++}</td>
                             <td class="text-nowrap">${repair.repair_date}</td>
                             <td><span class="badge bg-light text-dark border">${repair.repair_form}</span></td>
-                            <td class="fw-medium">${repair.repair_user}</td>
+                            <td class="fw-medium">${repair.admin_name}</td>
                             <td>${repair.repair_list}</td>
                             <td>${repair.repair_responsible}</td>
                             <td class="text-center">${statusBadge}</td>

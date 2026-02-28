@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     include('../../php/config.php');
 
     $fn = $_POST['fn'] ?? "";
@@ -26,7 +26,13 @@
 
     function select_repair($conn) {
 
-        $sql = "SELECT * FROM repair ORDER BY repair_id DESC";//ดึงจากตาราง
+        if ($_SESSION['admin_role'] == 1) {
+            $where = "";
+        } else {
+            $where = "WHERE user_id = ".$_SESSION['admin_id']."";
+        }
+
+        $sql = "SELECT * FROM repair INNER JOIN admins ON repair.user_id = admins.admin_id ".$where." ORDER BY repair_id DESC";//ดึงจากตาราง
         $result = $conn->query($sql);
 
         $repair = [];
@@ -44,19 +50,20 @@
 
     function insert_repair($conn) {
         //บันทึกข้อมูล
-        $sql = "INSERT INTO repair (repair_date, repair_form, repair_user, repair_list,repair_responsible,repair_status,repair_details)
-                VALUES (?, ?, ?, ?, ?, ?, ?)";//เปลี่ยนตามจำนวน
+        $sql = "INSERT INTO repair (repair_date, repair_form, repair_user, repair_list,repair_responsible,repair_status,repair_details,user_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";//เปลี่ยนตามจำนวน
 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param(
-            "sssssss",//เปลี่ยนตามจำนวน
+            "ssssssss",//เปลี่ยนตามจำนวน
             $_POST['repair_date'],//ค่า user_name ที่ส่งมา
             $_POST['repair_form'],//ค่า user_address ที่ส่งมา
             $_POST['repair_user'],//ค่า user_phone ที่ส่งมา
             $_POST['repair_list'],//ค่า user_phone ที่ส่งมา
             $_POST['repair_responsible'],//ค่า user_phone ที่ส่งมา
             $_POST['repair_status'],//ค่า user_phone ที่ส่งมา
-            $_POST['repair_details']//ค่า user_phone ที่ส่งมา
+            $_POST['repair_details'],//ค่า user_phone ที่ส่งมา
+            $_SESSION['admin_id']
         );
 
         $stmt->execute();
